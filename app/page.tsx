@@ -1,65 +1,161 @@
-import Image from "next/image";
+import Link from 'next/link'
+import Image from 'next/image'
+import { ClipboardList, Sparkles, Upload } from 'lucide-react'
 
-export default function Home() {
+function CtaButton() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="space-y-2">
+      <Link
+        href="/audit"
+        className="inline-block bg-black text-white px-8 py-4 rounded-lg font-semibold text-base hover:bg-gray-800 transition-colors w-full sm:w-auto text-center"
+      >
+        Audit My Profile — It&apos;s Free →
+      </Link>
+      <p className="text-sm text-gray-400">No account needed. Takes about 2 minutes.</p>
     </div>
-  );
+  )
+}
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col">
+      {/* Nav */}
+      <nav className="border-b border-gray-100 px-6 py-3">
+        <div className="max-w-4xl mx-auto">
+          <Image
+            src="/logo.png"
+            alt="BAMx"
+            width={100}
+            height={40}
+            priority
+            className="h-10 w-auto"
+          />
+        </div>
+      </nav>
+
+      <main className="flex-1">
+        {/* SECTION 1 — Hero */}
+        <section className="max-w-4xl mx-auto px-6 py-20 md:py-28">
+          <div className="max-w-2xl space-y-6">
+            <div className="inline-block bg-amber-400 text-black text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide">
+              Free Tool
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
+              Get Roasted.
+              <br />
+              Get Better.
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-xl">
+              The Broke Agent&apos;s AI tool audits your Instagram profile and tells you
+              exactly what to fix — in Eric&apos;s words, not corporate BS.
+            </p>
+            <CtaButton />
+          </div>
+        </section>
+
+        {/* SECTION 2 — How it works */}
+        <section className="bg-gray-50 py-16 md:py-20">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-10">How it works</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: <Upload className="w-6 h-6" />,
+                  title: 'Upload your screenshots',
+                  desc: 'Take a few screenshots of your bio and recent posts. Or enter your handle and we\'ll pull your public profile.',
+                },
+                {
+                  icon: <Sparkles className="w-6 h-6" />,
+                  title: 'AI runs the audit',
+                  desc: 'We run your profile through Eric\'s content frameworks — the same ones he uses in BAMx live audits.',
+                },
+                {
+                  icon: <ClipboardList className="w-6 h-6" />,
+                  title: 'Get your game plan',
+                  desc: 'Rewritten bio, feed breakdown, and 3–5 specific actions you can start today.',
+                },
+              ].map((step, i) => (
+                <div key={i} className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-amber-400 rounded-lg flex items-center justify-center shrink-0">
+                      {step.icon}
+                    </div>
+                    <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+                      Step {i + 1}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-base">{step.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 3 — What you get */}
+        <section className="py-16 md:py-20">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="text-2xl md:text-3xl font-bold mb-10">What&apos;s in the audit</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: 'Bio Audit',
+                  desc: 'We rewrite your bio from scratch using Eric\'s framework. You get the new bio ready to copy-paste, plus an explanation of every change.',
+                },
+                {
+                  title: 'Feed Audit',
+                  desc: 'We break down your content mix, call out the red flags Eric would spot in 10 seconds, and show you exactly what\'s missing.',
+                },
+                {
+                  title: 'Game Plan',
+                  desc: '3–5 prioritized actions in Eric\'s voice. Direct. Specific. No fluff.',
+                },
+              ].map((card, i) => (
+                <div
+                  key={i}
+                  className="border border-gray-200 rounded-xl p-6 space-y-2 hover:border-gray-400 transition-colors"
+                >
+                  <div className="w-2 h-2 rounded-full bg-amber-400" />
+                  <h3 className="font-semibold text-base">{card.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{card.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 4 — Final CTA */}
+        <section className="bg-gray-950 py-16 md:py-20">
+          <div className="max-w-4xl mx-auto px-6 text-center space-y-4">
+            <h2 className="text-2xl md:text-4xl font-bold text-white">
+              Your page is being judged anyway.
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg">
+              Might as well know what people are actually seeing.
+            </p>
+            <div className="pt-2 flex flex-col items-center space-y-2">
+              <Link
+                href="/audit"
+                className="inline-block bg-amber-400 text-black px-8 py-4 rounded-lg font-semibold text-base hover:bg-amber-300 transition-colors"
+              >
+                Audit My Profile — It&apos;s Free →
+              </Link>
+              <p className="text-sm text-gray-500">No account needed. Takes about 2 minutes.</p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer className="border-t border-gray-100 px-6 py-6">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-sm text-gray-400">
+          <div className="flex items-center gap-3">
+            <Image src="/logo.png" alt="BAMx" width={60} height={24} className="h-6 w-auto opacity-60" />
+            <span>Content Advisor — Built on Eric Simon&apos;s frameworks</span>
+          </div>
+          <span>© 2025 BAM Media</span>
+        </div>
+      </footer>
+    </div>
+  )
 }
