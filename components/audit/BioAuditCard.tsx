@@ -28,7 +28,7 @@ export default function BioAuditCard({ result, currentBio }: Props) {
           <h3 className="font-semibold text-base">Bio Audit</h3>
         </div>
         <span
-          className={`text-sm font-semibold px-3 py-1 rounded-full border ${getScoreColor(result.score)} bg-white`}
+          className={`text-sm font-semibold px-3 py-1 rounded-full border whitespace-nowrap shrink-0 ${getScoreColor(result.score)} bg-white`}
         >
           {result.score}/10 — {getScoreLabel(result.score)}
         </span>

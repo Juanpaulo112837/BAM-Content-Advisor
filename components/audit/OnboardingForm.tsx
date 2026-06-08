@@ -162,7 +162,7 @@ export default function OnboardingForm({ onSubmit, instagramHandle }: Props) {
 }
 
 function inputClass(hasError: boolean) {
-  return `w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black resize-none transition-colors ${
+  return `w-full border rounded-lg px-3 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-black resize-none transition-colors ${
     hasError ? 'border-red-400 focus:ring-red-400' : 'border-gray-300'
   }`
 }

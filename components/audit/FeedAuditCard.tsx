@@ -27,7 +27,7 @@ export default function FeedAuditCard({ result }: Props) {
           <h3 className="font-semibold text-base">Feed Audit</h3>
         </div>
         <span
-          className={`text-sm font-semibold px-3 py-1 rounded-full border ${getScoreColor(result.score)} bg-white`}
+          className={`text-sm font-semibold px-3 py-1 rounded-full border whitespace-nowrap shrink-0 ${getScoreColor(result.score)} bg-white`}
         >
           {result.score}/10 — {getScoreLabel(result.score)}
         </span>

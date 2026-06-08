@@ -22,7 +22,7 @@ export default function EmailGate({
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const trimmed = email.trim().toLowerCase()
 
@@ -65,7 +65,7 @@ export default function EmailGate({
       </p>
 
       {/* Blurred preview + form overlay */}
-      <div className="relative rounded-xl overflow-hidden">
+      <div className="relative rounded-xl overflow-hidden min-h-[320px]">
         {/* Blurred placeholder content */}
         <div
           className="pointer-events-none select-none opacity-50 space-y-3 p-4 bg-gray-50 rounded-xl"
@@ -87,7 +87,7 @@ export default function EmailGate({
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setEmailError(null) }}
                 placeholder="your@email.com"
-                className={`w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-black ${
+                className={`w-full border rounded-lg px-3 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-black ${
                   emailError ? 'border-red-400' : 'border-gray-300'
                 }`}
               />

@@ -22,7 +22,7 @@ export default function BAMxUpsell() {
           href={BAMX_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block bg-black text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-800 transition-colors"
+          className="inline-block w-full sm:w-auto text-center bg-black text-white px-6 py-3 rounded-lg font-semibold text-sm hover:bg-gray-800 transition-colors"
         >
           Learn about BAMx →
         </a>
