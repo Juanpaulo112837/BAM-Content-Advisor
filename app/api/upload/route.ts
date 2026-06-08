@@ -35,6 +35,23 @@ export async function POST(req: NextRequest) {
     }
   }
 
+  // Local dev fallback: no Blob token → return base64 data URLs
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    try {
+      const urls = await Promise.all(
+        files.map(async (file) => {
+          const buffer = await file.arrayBuffer()
+          const base64 = Buffer.from(buffer).toString('base64')
+          return `data:${file.type};base64,${base64}`
+        })
+      )
+      return NextResponse.json({ urls })
+    } catch (err) {
+      console.error('Base64 conversion error:', err)
+      return NextResponse.json({ error: 'Upload failed. Please try again.' }, { status: 500 })
+    }
+  }
+
   try {
     const uploads = await Promise.all(
       files.map((file) =>
