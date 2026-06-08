@@ -68,25 +68,36 @@ export default function InstagramInput({
     setPreviews((prev) => prev.filter((_, i) => i !== index))
   }
 
+  function compressImage(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new window.Image()
+      const objectUrl = URL.createObjectURL(file)
+      img.onload = () => {
+        URL.revokeObjectURL(objectUrl)
+        const MAX = 1200
+        let w = img.naturalWidth
+        let h = img.naturalHeight
+        if (w > MAX) { h = Math.round(h * MAX / w); w = MAX }
+        const canvas = document.createElement('canvas')
+        canvas.width = w
+        canvas.height = h
+        canvas.getContext('2d')!.drawImage(img, 0, 0, w, h)
+        resolve(canvas.toDataURL('image/jpeg', 0.82))
+      }
+      img.onerror = () => { URL.revokeObjectURL(objectUrl); reject(new Error('Failed to load image')) }
+      img.src = objectUrl
+    })
+  }
+
   async function handleUploadSubmit() {
     if (files.length === 0) return
     setIsUploading(true)
     setUploadError(null)
-
     try {
-      const formData = new FormData()
-      files.forEach((f) => formData.append('screenshots', f))
-
-      const res = await fetch('/api/upload', { method: 'POST', body: formData })
-      const data = await res.json()
-
-      if (!res.ok) {
-        setUploadError(data.error || 'Upload failed. Please try again.')
-        return
-      }
-      onUploaded(data.urls)
+      const urls = await Promise.all(files.map(compressImage))
+      onUploaded(urls)
     } catch {
-      setUploadError('Upload failed. Please try again.')
+      setUploadError('Could not process images. Please try again.')
     } finally {
       setIsUploading(false)
     }

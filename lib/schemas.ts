@@ -21,7 +21,7 @@ export const AuditRequestSchema = z.object({
     ),
   }),
   onboarding: OnboardingAnswersSchema,
-  screenshotUrls: z.array(z.string().url()).max(5).optional(),
+  screenshotUrls: z.array(z.string().min(1)).max(5).optional(),
 })
 
 export const EmailCaptureSchema = z.object({
