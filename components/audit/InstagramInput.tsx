@@ -150,15 +150,16 @@ export default function InstagramInput({
       {previews.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {previews.map((src, i) => (
-            <div key={i} className="relative w-[60px] h-[60px] rounded-lg overflow-hidden border border-gray-200">
+            <div key={i} className="relative w-[72px] h-[72px] rounded-lg overflow-hidden border border-gray-200">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={src} alt={`Screenshot ${i + 1}`} className="w-full h-full object-cover" />
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); removeFile(i) }}
-                className="absolute top-0 right-0 bg-black/70 text-white rounded-bl-lg p-0.5"
+                className="absolute top-0 right-0 w-7 h-7 bg-black/75 text-white rounded-bl-lg flex items-center justify-center"
+                aria-label="Remove screenshot"
               >
-                <X className="w-3 h-3" />
+                <X className="w-3.5 h-3.5" />
               </button>
             </div>
           ))}
@@ -216,7 +217,7 @@ export default function InstagramInput({
   const handleSection = (
     <div>
       <h2 className="text-lg font-semibold mb-3">Enter your Instagram handle</h2>
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-2">
         <input
           type="text"
           value={handleInput ? `@${handleInput}` : ''}
@@ -227,13 +228,13 @@ export default function InstagramInput({
             setNoInputError(null)
           }}
           onKeyDown={(e) => e.key === 'Enter' && handleHandleSubmit()}
-          className="flex-1 border border-gray-300 rounded-lg px-3 py-2.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-black disabled:opacity-50"
+          className="flex-1 border border-gray-300 rounded-lg px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-black disabled:opacity-50"
         />
         <button
           type="button"
           onClick={handleHandleSubmit}
           disabled={isLoadingHandle || !handleInput}
-          className="flex items-center gap-2 bg-black text-white px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 whitespace-nowrap"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 bg-black text-white px-4 py-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 whitespace-nowrap min-h-[48px]"
         >
           {isLoadingHandle ? (
             <><Loader2 className="w-4 h-4 animate-spin" /> Loading...</>

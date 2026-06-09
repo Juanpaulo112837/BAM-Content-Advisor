@@ -41,7 +41,7 @@ export default function BioAuditCard({ result, currentBio }: Props) {
         </p>
         <div className="bg-gray-50 rounded-lg px-3 py-2.5 min-h-[48px]">
           {currentBio.trim() ? (
-            <p className="text-sm text-gray-700 whitespace-pre-wrap">{currentBio}</p>
+            <p className="text-sm text-gray-700 whitespace-pre-wrap break-words">{currentBio}</p>
           ) : (
             <p className="text-sm text-red-500 italic">Your bio is empty.</p>
           )}
@@ -72,7 +72,7 @@ export default function BioAuditCard({ result, currentBio }: Props) {
         </p>
         <div className="relative bg-green-50 border border-green-200 rounded-lg px-3 py-2.5">
           {result.rewrittenBio ? (
-            <p className="text-sm text-gray-800 pr-16">{result.rewrittenBio}</p>
+            <p className="text-sm text-gray-800 pr-16 break-words">{result.rewrittenBio}</p>
           ) : (
             <p className="text-sm text-amber-600 italic">
               Bio rewrite unavailable — try running the audit again.

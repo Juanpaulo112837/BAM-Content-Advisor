@@ -142,7 +142,7 @@ export default function AuditPage() {
   const stepLabel = STEP_LABELS[store.step]
 
   return (
-    <div className="min-h-screen pb-20 md:pb-8">
+    <div className="min-h-screen pb-28 md:pb-8">
       {/* Nav */}
       <nav className="border-b border-gray-100 px-6 py-3 mb-2">
         <div className="max-w-2xl mx-auto">
@@ -267,7 +267,10 @@ export default function AuditPage() {
 
       {/* Mobile step indicator — hidden on md and above */}
       {stepLabel && (
-        <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 px-4 py-3 z-10">
+        <div
+          className="fixed bottom-0 left-0 right-0 md:hidden bg-white border-t border-gray-200 px-4 pt-3 z-10"
+          style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
+        >
           <p className="text-xs text-center text-gray-500 font-medium">{stepLabel}</p>
         </div>
       )}

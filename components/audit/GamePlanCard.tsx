@@ -32,7 +32,7 @@ export default function GamePlanCard({ result }: Props) {
               </div>
 
               {/* Content */}
-              <div className="flex-1 space-y-2 min-w-0">
+              <div className="flex-1 space-y-2 min-w-0 break-words">
                 <p className="font-semibold text-white text-base leading-snug">
                   {action.action}
                 </p>
