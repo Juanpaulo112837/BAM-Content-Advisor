@@ -22,6 +22,17 @@ const FREQUENCY_OPTIONS: {
   { value: 'barely', label: 'Barely at all', subtext: 'A few times a month or less' },
 ]
 
+const ROLE_OPTIONS: {
+  value: OnboardingAnswers['agentRole']
+  label: string
+  subtext: string
+}[] = [
+  { value: 'solo', label: 'Solo agent', subtext: 'Building my own brand independently' },
+  { value: 'team-agent', label: 'Agent on a team', subtext: "Part of someone else's team" },
+  { value: 'team-leader', label: 'Team leader', subtext: 'Running my own team' },
+  { value: 'broker', label: 'Broker / owner', subtext: 'Running a brokerage' },
+]
+
 export default function OnboardingForm({ onSubmit, instagramHandle }: Props) {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -36,6 +47,7 @@ export default function OnboardingForm({ onSubmit, instagramHandle }: Props) {
   })
 
   const selectedFrequency = watch('postingFrequency')
+  const selectedAgentRole = watch('agentRole')
 
   async function onFormSubmit(data: OnboardingAnswers) {
     setIsSubmitting(true)
@@ -87,6 +99,34 @@ export default function OnboardingForm({ onSubmit, instagramHandle }: Props) {
           placeholder="e.g. 8 months  |  3 years, mostly buyers  |  Just got licensed last month"
           className={inputClass(!!errors.experience)}
         />
+      </Field>
+
+      {/* Q2.5 — agentRole */}
+      <Field
+        label="Which best describes your role?"
+        hint={null}
+        error={errors.agentRole?.message}
+      >
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {ROLE_OPTIONS.map((opt) => {
+            const selected = selectedAgentRole === opt.value
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setValue('agentRole', opt.value, { shouldValidate: true })}
+                className={`text-left border-2 rounded-xl px-4 py-3 transition-colors
+                  ${selected
+                    ? 'border-black bg-gray-50'
+                    : 'border-gray-200 hover:border-gray-400'
+                  }`}
+              >
+                <p className="font-medium text-sm">{opt.label}</p>
+                <p className="text-xs text-gray-500 mt-0.5">{opt.subtext}</p>
+              </button>
+            )
+          })}
+        </div>
       </Field>
 
       {/* Q3 — knownFor */}
@@ -143,6 +183,20 @@ export default function OnboardingForm({ onSubmit, instagramHandle }: Props) {
             )
           })}
         </div>
+      </Field>
+
+      {/* Q6 — referralSource (optional) */}
+      <Field
+        label="How did you hear about this tool?"
+        hint="Optional — helps us understand who's finding this useful."
+        error={undefined}
+      >
+        <input
+          {...register('referralSource')}
+          type="text"
+          placeholder="e.g. Instagram, a colleague, BAMx community, email..."
+          className={inputClass(false)}
+        />
       </Field>
 
       {/* Submit */}

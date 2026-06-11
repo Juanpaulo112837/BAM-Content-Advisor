@@ -3,9 +3,11 @@ import { z } from 'zod'
 export const OnboardingAnswersSchema = z.object({
   market: z.string().min(2).max(300),
   experience: z.string().min(1).max(100),
+  agentRole: z.enum(['solo', 'team-agent', 'team-leader', 'broker']),
   knownFor: z.string().min(2).max(300),
   enjoyPosting: z.string().min(2).max(300),
   postingFrequency: z.enum(['consistently', 'occasionally', 'barely']),
+  referralSource: z.string().max(300).optional(),
 })
 
 export const AuditRequestSchema = z.object({
@@ -25,9 +27,21 @@ export const AuditRequestSchema = z.object({
 })
 
 export const EmailCaptureSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   instagramHandle: z.string().optional(),
+  submittedBio: z.string().optional(),
+  rewrittenBio: z.string().optional(),
   market: z.string().optional(),
+  experience: z.string().optional(),
+  agentRole: z.string().optional(),
+  knownFor: z.string().optional(),
+  enjoyPosting: z.string().optional(),
+  postingFrequency: z.string().optional(),
+  referralSource: z.string().optional(),
+  bioScore: z.number().optional(),
+  feedScore: z.number().optional(),
+  auditSummary: z.string().optional(),
+  auditResult: z.any().optional(),
 })
 
 export const BioAuditSchema = z.object({

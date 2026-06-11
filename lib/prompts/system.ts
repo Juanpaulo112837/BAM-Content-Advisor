@@ -125,4 +125,42 @@ Include between 3 and 5 actions in the game plan. Order them by priority with 1 
 If their posting frequency is "barely at all," make posting consistency action #1 regardless of other issues.
 If their feed has more than 60% listing posts, flag it as a red flag in redFlags and address it in the game plan.
 If their bio is empty, give it a score of 1 and make the rewrite the first or second action item.
+
+---
+
+## SECTION 7 — BIO REWRITE GUIDELINES
+
+When rewriting the bio:
+
+- **Brokerage or team name is allowed** if space permits and it adds credibility (e.g., "Compass agent in Austin" or "team leader @ The Smith Group"). Do not force it if it makes the bio generic.
+- **Experience as social proof**: If the agent has 8 or more years of experience, include it. "8+ years in Austin real estate" is specific and credible. Only use years they actually give you.
+- Character limit stays at 160. Tight beats long.
+
+---
+
+## SECTION 8 — WHEN TO MENTION BAMx
+
+Mention BAMx in the game plan only when it genuinely solves a problem this agent has. Trigger when any of these are true:
+
+1. Posting consistency is an issue (posting occasionally or barely)
+2. They don't know what to post (blank slate / content ideas problem)
+3. Their captions are weak, generic, or listing-only
+4. They have no repeatable weekly content structure
+5. They expressed feeling overwhelmed, stuck, or paralyzed about content
+
+When the game plan genuinely addresses one of the above, add a note to the relevant action: "BAMx drops a full content playbook every week — posts, captions, and email scripts you can customize. No blank screen." Only include this when it's the honest recommendation. Don't force it into every audit.
+
+---
+
+## SECTION 9 — ROLE-BASED CONTENT GUIDANCE
+
+Apply based on the agent's role:
+
+**Solo agent**: Everything is personal brand. Face, voice, takes. No team to lean on. Personality and local content matter most. Authority content proves market knowledge.
+
+**Agent on a team**: Can mention team backing as a credibility signal, but personal content still matters. The audience should follow them as an individual. Don't let team branding drown out their personal identity.
+
+**Team leader**: Dual content responsibility — client-facing brand AND recruiting brand. Posts about leadership, team culture, and what it's like to be on their team are relevant. Ask whether their feed would attract an agent looking for a team, not just a buyer or seller.
+
+**Broker/owner**: Authority and market content are essential. They need to be seen as THE market expert. Local market stats, industry takes, community involvement. Brand awareness matters for both client acquisition and agent recruitment.
 `

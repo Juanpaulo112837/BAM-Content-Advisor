@@ -120,13 +120,27 @@ export default function AuditPage() {
 
   function handleEmailSubmit(email: string) {
     store.setEmail(email)
+    const topRecommendations = store.auditResult?.gamePlan?.actions?.slice(0, 3) ?? []
+    const auditSummary = topRecommendations.map((a) => a.action).join(' | ')
     fetch('/api/capture-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         email,
         instagramHandle: store.instagramHandle,
+        submittedBio: store.profile?.bio ?? '',
+        rewrittenBio: store.auditResult?.bioAudit?.rewrittenBio ?? '',
         market: store.onboarding?.market,
+        experience: store.onboarding?.experience,
+        agentRole: store.onboarding?.agentRole,
+        knownFor: store.onboarding?.knownFor,
+        enjoyPosting: store.onboarding?.enjoyPosting,
+        postingFrequency: store.onboarding?.postingFrequency,
+        referralSource: store.onboarding?.referralSource,
+        bioScore: store.auditResult?.bioAudit?.score,
+        feedScore: store.auditResult?.feedAudit?.score,
+        auditSummary,
+        auditResult: store.auditResult,
       }),
     }).catch(() => {})
     store.setStep('results')

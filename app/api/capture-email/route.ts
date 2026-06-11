@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { EmailCaptureSchema } from '@/lib/schemas'
+import { appendAuditRow } from '@/lib/googleSheets'
+import { sendAuditResultsEmail } from '@/lib/email'
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,9 +10,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
     }
 
-    const { email, instagramHandle, market } = parsed.data
+    const {
+      email, instagramHandle, submittedBio, rewrittenBio,
+      market, experience, agentRole, knownFor, enjoyPosting,
+      postingFrequency, referralSource, bioScore, feedScore,
+      auditSummary, auditResult,
+    } = parsed.data
 
-    // GoHighLevel — fire and forget
+    // GHL — CRM contact capture only (fire and forget)
     if (process.env.GHL_WEBHOOK_URL) {
       fetch(process.env.GHL_WEBHOOK_URL, {
         method: 'POST',
@@ -25,7 +32,7 @@ export async function POST(req: NextRequest) {
       }).catch((err) => console.error('GHL webhook error:', err))
     }
 
-    // Kit — subscribe to Viral Agent Newsletter, fire and forget
+    // Kit — Viral Agent Newsletter subscription (fire and forget)
     if (process.env.KIT_API_KEY && process.env.KIT_FORM_ID) {
       fetch(
         `https://api.convertkit.com/v3/forms/${process.env.KIT_FORM_ID}/subscribe`,
@@ -40,6 +47,47 @@ export async function POST(req: NextRequest) {
         }
       ).catch((err) => console.error('Kit subscribe error:', err))
     }
+
+    // Email then Sheets run sequentially in background IIFE
+    // Sheets runs after email so emailSentStatus is accurate
+    ;(async () => {
+      let emailSentStatus: 'sent' | 'failed' | 'skipped' = 'skipped'
+
+      if (process.env.RESEND_API_KEY && auditResult) {
+        try {
+          await sendAuditResultsEmail({
+            to: email,
+            instagramHandle: instagramHandle ?? '',
+            submittedBio: submittedBio ?? '',
+            auditResult,
+          })
+          emailSentStatus = 'sent'
+        } catch (err) {
+          console.error('Resend error:', err)
+          emailSentStatus = 'failed'
+        }
+      }
+
+      if (process.env.GOOGLE_SHEETS_SPREADSHEET_ID) {
+        appendAuditRow({
+          email,
+          instagramHandle,
+          submittedBio,
+          rewrittenBio,
+          market,
+          experience,
+          agentRole,
+          knownFor,
+          enjoyPosting,
+          postingFrequency,
+          referralSource,
+          bioScore,
+          feedScore,
+          auditSummary,
+          emailSentStatus,
+        }).catch((err) => console.error('Sheets append error:', err))
+      }
+    })()
 
     return NextResponse.json({ success: true })
   } catch (err) {

@@ -6,6 +6,13 @@ const FREQUENCY_LABELS: Record<OnboardingAnswers['postingFrequency'], string> = 
   barely: 'Barely at all (a few times a month or less)',
 }
 
+const ROLE_LABELS: Record<OnboardingAnswers['agentRole'], string> = {
+  solo: 'Solo agent (independent)',
+  'team-agent': 'Agent on a team',
+  'team-leader': 'Team leader',
+  broker: 'Broker/owner',
+}
+
 export function buildAuditPrompt(
   profile: InstagramProfile,
   onboarding: OnboardingAnswers,
@@ -47,6 +54,7 @@ ${postsSection}
 
 Market/City: ${onboarding.market}
 Years in Real Estate: ${onboarding.experience}
+Agent role: ${ROLE_LABELS[onboarding.agentRole]}
 What they want to be known for: ${onboarding.knownFor}
 What they enjoy posting about: ${onboarding.enjoyPosting}
 Posting frequency: ${FREQUENCY_LABELS[onboarding.postingFrequency]}

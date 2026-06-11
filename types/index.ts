@@ -17,9 +17,11 @@ export interface InstagramPost {
 export interface OnboardingAnswers {
   market: string
   experience: string
+  agentRole: 'solo' | 'team-agent' | 'team-leader' | 'broker'
   knownFor: string
   enjoyPosting: string
   postingFrequency: 'consistently' | 'occasionally' | 'barely'
+  referralSource?: string
 }
 
 export interface BioAudit {
